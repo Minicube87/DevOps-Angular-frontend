@@ -14,27 +14,35 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh 'npm --version'
-                sh 'node --version'
-                sh 'npm install'
+                dir('angular-frontend') {
+                    sh 'npm --version'
+                    sh 'node --version'
+                    sh 'npm install'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                dir('angular-frontend') {
+                    sh 'npm run build'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                dir('angular-frontend') {
+                    sh 'npm test'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Frontend deployed (simulated)"
+                dir('angular-frontend') {
+                    echo "Frontend deployed (simulated)"
+                }
             }
         }
 

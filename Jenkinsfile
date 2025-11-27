@@ -5,6 +5,10 @@ pipeline {
         nodejs "Node"
     }
 
+    environment {
+    NODE_OPTIONS = '--openssl-legacy-provider'
+    }
+
     stages {
         //stage("Cleanup"){ 
         //    steps{ 

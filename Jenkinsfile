@@ -14,30 +14,35 @@ pipeline {
 
         stage('Install') {
             steps {
-                // Installiert Dependencies aus package.json
-                sh 'npm --version'
-                sh 'node --version'
-                sh 'npm install'
+                dir('angular-frontend') {
+                    sh 'npm --version'
+                    sh 'node --version'
+                    sh 'npm install'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                // Baut TypeScript nach dist/
-                sh 'npm run build'
+                dir('angular-frontend') {
+                    sh 'npm run build'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                // Führt Tests aus (z.B. Jest)
-                sh 'npm test'
+                dir('angular-frontend') {
+                    sh 'npm test'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Frontend deployed (simulated)"
+                dir('angular-frontend') {
+                    echo "Frontend deployed (simulated)"
+                }
             }
         }
 

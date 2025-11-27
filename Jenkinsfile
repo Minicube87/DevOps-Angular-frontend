@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+
+    tools{
+        nodejs "Node"
+    }
+
+    stages {
+        //stage("Cleanup"){ 
+        //    steps{ 
+        //        sh "rm -rf ./*"
+        //    }       
+        //}
+
+        stage('Install') {
+            steps {
+                // Installiert Dependencies aus package.json
+                sh 'npm --version'
+                sh 'node --version'
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Baut TypeScript nach dist/
+                sh 'npm run build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Führt Tests aus (z.B. Jest)
+                sh 'npm test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Frontend deployed (simulated)"
+            }
+        }
+
+        
+    }
+
+    post {
+        always {
+            echo '-----------------------'
+        }
+        success {
+            cleanWs()
+        }
+        failure {
+            echo 'Build failed'
+        }
+    }
+}

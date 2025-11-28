@@ -17,7 +17,7 @@ module.exports = function (config) {
       require("@angular-devkit/build-angular/plugins/karma"),
     ],
     client: {
-      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      clearContext: false,
     },
     coverageIstanbulReporter: {
       dir: require("path").join(__dirname, "./coverage/angular-frontend"),
@@ -30,12 +30,18 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
 
-    browsers: ["ChromeHeadless"],
+    browsers: ["ChromeHeadlessCI"],
 
     customLaunchers: {
       ChromeHeadlessCI: {
         base: "ChromeHeadless",
-        flags: ["--no-sandbox", "--disable-setuid-sandbox"],
+        flags: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-gpu",
+          "--disable-software-rasterizer",
+        ],
       },
     },
 

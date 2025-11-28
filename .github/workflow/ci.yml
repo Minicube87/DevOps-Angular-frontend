@@ -1,0 +1,36 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  FRONTEND_DIR: angular-frontend
+  NODE_OPTIONS: --openssl-legacy-provider
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup Node
+      uses: actions/setup-node@v4
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ${{ env.FRONTEND_DIR }}
+
+    - name: Build frontend
+      run: npm run build
+      working-directory: ${{ env.FRONTEND_DIR }}
+
+    - name: Run tests
+      run: npm test
+      working-directory: ${{ env.FRONTEND_DIR }}
+
+    - name: Deploy
+      run: echo "Frontend deployed (simulated)"
+      working-directory: ${{ env.FRONTEND_DIR }}

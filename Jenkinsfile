@@ -26,12 +26,6 @@ pipeline {
             }
         }
 
-        stage('Fix ngcc lock') {
-            steps {
-                sh 'rm -f node_modules/@angular/compiler-cli/ngcc/__ngcc_lock_file__'
-            }
-        }
-
         stage('Build') {
             steps {
                 dir('angular-frontend') {
